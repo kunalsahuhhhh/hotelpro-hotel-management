@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HotelPro - Complete Hotel Booking & Management Solution</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Active Role Banner -->
+  <div id="role-indicator-banner"></div>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar" id="navbar-container"></nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero-section">
+    <div class="hero-content">
+      <div class="hero-pill">
+        <span>👑</span> 5-Star Luxury Experience &amp; Modern Hospitality Engine
+      </div>
+      <h1 class="hero-title">
+        The Future of <span>Hotel Booking</span> &amp; Seamless Management
+      </h1>
+      <p class="hero-subtitle">
+        Experience digital hospitality at its finest. Real-time suite reservations, contactless guest passes, automated front desk operations, and intelligent room inventory control.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Container -->
+  <main id="main-container">
+
+    <!-- Floating Booking Search Bar -->
+    <div class="search-widget" id="search-widget">
+      <div class="search-grid">
+        <div class="search-field">
+          <label for="search-checkin">📅 Check-In Date</label>
+          <input type="date" id="search-checkin">
+        </div>
+        <div class="search-field">
+          <label for="search-checkout">📅 Check-Out Date</label>
+          <input type="date" id="search-checkout">
+        </div>
+        <div class="search-field">
+          <label for="search-room-type">🏨 Suite Category</label>
+          <select id="search-room-type">
+            <option value="all">All Suite Collections</option>
+            <option value="Suites">Executive &amp; Ocean Suites</option>
+            <option value="Penthouse">Skyline Penthouses</option>
+            <option value="Villas">Tropical Luxury Villas</option>
+            <option value="Standard">Classic &amp; Heritage Rooms</option>
+          </select>
+        </div>
+        <div class="search-field">
+          <label for="search-guests">👥 Guests</label>
+          <select id="search-guests">
+            <option value="1">1 Adult</option>
+            <option value="2" selected>2 Adults</option>
+            <option value="3">3 Adults</option>
+            <option value="4">4 Adults / Family</option>
+          </select>
+        </div>
+        <button class="btn btn-accent" id="hero-search-btn" style="height: 48px;">
+          Find Suites
+        </button>
+      </div>
+    </div>
+
+    <!-- Highlights Ribbon -->
+    <div class="stats-ribbon">
+      <div class="stat-item">
+        <div class="stat-icon">🌟</div>
+        <div class="stat-info">
+          <h4>4.9 / 5.0</h4>
+          <p>Over 1,200+ Verified Guest Reviews</p>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">⚡</div>
+        <div class="stat-info">
+          <h4>Instant Sync</h4>
+          <p>Real-Time Availability &amp; Booking</p>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">📱</div>
+        <div class="stat-info">
+          <h4>Digital Passes</h4>
+          <p>Contactless Check-in QR Vouchers</p>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">🛡️</div>
+        <div class="stat-info">
+          <h4>24/7 Security</h4>
+          <p>Encrypted Payments &amp; JWT Auth</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Explore Suites Section -->
+    <section class="section" id="explore-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Our Handcrafted Accommodations</h2>
+          <p class="section-subtitle">Select from our signature collection of ocean suites, tropical private villas, and presidential sky penthouses.</p>
+        </div>
+        <div style="font-size: 0.9rem; color: var(--text-muted);">
+          Showing available suites in real-time
+        </div>
+      </div>
+
+      <!-- Filter & Search Toolbar -->
+      <div class="filter-bar">
+        <div class="category-pills">
+          <button class="pill-btn active" data-cat="All">All Suites</button>
+          <button class="pill-btn" data-cat="Suites">Suites</button>
+          <button class="pill-btn" data-cat="Penthouse">Penthouses</button>
+          <button class="pill-btn" data-cat="Villas">Villas</button>
+          <button class="pill-btn" data-cat="Standard">Standard</button>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+          <!-- Price Slider -->
+          <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem;">
+            <span>Max Price:</span>
+            <input type="range" id="price-range-slider" min="120" max="800" step="20" value="800" style="cursor: pointer; accent-color: var(--primary);">
+            <strong id="price-range-val" style="color: var(--primary-dark); min-width: 45px;">$800</strong>
+          </div>
+
+          <!-- Search Input -->
+          <input type="text" id="room-search-input" placeholder="Search suite name, room #..." style="padding: 0.45rem 0.8rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-size: 0.85rem; width: 190px;">
+
+          <!-- Sort Select -->
+          <select id="room-sort-select" class="sort-select">
+            <option value="featured">Featured Suites</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating">Top Rated (Stars)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Room Cards Grid -->
+      <div class="room-grid" id="room-grid"></div>
+    </section>
+
+    <!-- Guest My Bookings Section -->
+    <section class="section" id="my-bookings-section" style="display: none;">
+      <div id="my-bookings-container"></div>
+    </section>
+
+    <!-- Admin & Front Desk Operations Dashboard Section -->
+    <section class="section" id="admin-dashboard-section" style="display: none;">
+      <div id="admin-dashboard-container"></div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer style="background: #0f172a; color: #94a3b8; padding: 4rem 2rem 2rem 2rem; margin-top: 5rem; border-top: 1px solid #1e293b;">
+    <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2.5rem; margin-bottom: 3rem;">
+      <div>
+        <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 1.4rem; font-weight: 800; color: white; margin-bottom: 1rem;">
+          <span style="font-size: 1.6rem;">🏨</span> HotelPro
+        </div>
+        <p style="font-size: 0.85rem; line-height: 1.6; color: #64748b;">
+          Complete hotel booking and operational management ecosystem. Streamlined reservation lifecycle, real-time room matrices, and secure guest records.
+        </p>
+      </div>
+
+      <div>
+        <h4 style="color: white; font-size: 1rem; margin-bottom: 1rem;">Project Architecture</h4>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.85rem;">
+          <li><a href="javascript:void(0)" onclick="openArchitectureModal()" style="color: #cbd5e1;">View 6 Epics &amp; 19 Tasks</a></li>
+          <li><a href="javascript:void(0)" onclick="setRole('admin')" style="color: #cbd5e1;">Manager / Admin Portal</a></li>
+          <li><a href="javascript:void(0)" onclick="setRole('staff')" style="color: #cbd5e1;">Front Desk Operations Desk</a></li>
+          <li><a href="javascript:void(0)" onclick="setRole('guest')" style="color: #cbd5e1;">Guest Reservation Portal</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="color: white; font-size: 1rem; margin-bottom: 1rem;">MERN Tech Stack</h4>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.85rem; color: #64748b;">
+          <li>Frontend: React.js &amp; Modern Responsive UI</li>
+          <li>Backend: Node.js &amp; Express.js REST APIs</li>
+          <li>Database: MongoDB &amp; Mongoose Schemas</li>
+          <li>Security: JWT Authentication &amp; RBAC</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="color: white; font-size: 1rem; margin-bottom: 1rem;">Course Evaluation</h4>
+        <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 1rem;">
+          Full-Stack Web Development Capstone Project. Designed for SkillWallet module verification.
+        </p>
+        <button class="btn btn-outline btn-sm" onclick="openArchitectureModal()" style="color: white; border-color: #334155;">
+          Review Kanban &amp; Epics
+        </button>
+      </div>
+    </div>
+
+    <div style="max-width: 1200px; margin: 0 auto; padding-top: 1.5rem; border-top: 1px solid #1e293b; text-align: center; font-size: 0.8rem; color: #64748b;">
+      &copy; 2026 HotelPro Solutions. All rights reserved. Built with precision for luxury hospitality.
+    </div>
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- MODALS -->
+  <!-- ========================================================================= -->
+
+  <!-- Room Details Modal -->
+  <div class="modal-overlay" id="room-details-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="room-details-title">Suite Overview</h3>
+        <button class="modal-close" onclick="closeModal('room-details-modal')">&times;</button>
+      </div>
+      <div class="modal-body" id="room-details-modal-content"></div>
+    </div>
+  </div>
+
+  <!-- Booking & Payment Modal -->
+  <div class="modal-overlay" id="booking-modal">
+    <div class="modal-card" style="max-width: 760px;">
+      <div class="modal-header">
+        <div>
+          <h3 style="font-size: 1.4rem;">Complete Your Reservation</h3>
+          <p id="book-room-title" style="font-size: 0.85rem; color: var(--primary); font-weight: 700;"></p>
+        </div>
+        <button class="modal-close" onclick="closeModal('booking-modal')">&times;</button>
+      </div>
+
+      <form id="booking-form">
+        <div class="modal-body">
+          <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 2rem;">
+            
+            <!-- Guest & Stay Form -->
+            <div>
+              <h4 style="font-size: 0.95rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1rem;">
+                Guest Details
+              </h4>
+
+              <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+                <div>
+                  <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Full Name *</label>
+                  <input type="text" id="book-guest-name" required style="width: 100%; padding: 0.65rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-family: inherit;">
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                  <div>
+                    <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Email Address *</label>
+                    <input type="email" id="book-guest-email" required style="width: 100%; padding: 0.65rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-family: inherit;">
+                  </div>
+                  <div>
+                    <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Phone Number *</label>
+                    <input type="tel" id="book-guest-phone" required style="width: 100%; padding: 0.65rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-family: inherit;">
+                  </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                  <div>
+                    <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Check-in Date *</label>
+                    <input type="date" id="book-checkin" required style="width: 100%; padding: 0.65rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-family: inherit;">
+                  </div>
+                  <div>
+                    <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Check-out Date *</label>
+                    <input type="date" id="book-checkout" required style="width: 100%; padding: 0.65rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-family: inherit;">
+                  </div>
+                </div>
+
+                <div>
+                  <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Number of Guests</label>
+                  <select id="book-guests" style="width: 100%; padding: 0.65rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-family: inherit;">
+                    <option value="1">1 Guest</option>
+                    <option value="2" selected>2 Guests</option>
+                    <option value="3">3 Guests</option>
+                    <option value="4">4 Guests</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Special Requests (Optional)</label>
+                  <input type="text" id="book-requests" placeholder="e.g. Airport pickup, high floor, quiet room" style="width: 100%; padding: 0.65rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-family: inherit;">
+                </div>
+              </div>
+            </div>
+
+            <!-- Price Breakdown & Payment -->
+            <div style="background: var(--bg-main); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
+              <h4 style="font-size: 0.95rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.75rem;">
+                Pricing Breakdown
+              </h4>
+
+              <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;" id="book-room-meta"></div>
+
+              <div style="display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.25rem;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                  <span id="summary-rate">Room rate</span>
+                  <span id="summary-subtotal">$0.00</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted);">
+                  <span>Length of stay</span>
+                  <span id="summary-nights">0 nights</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted);">
+                  <span>State Hospitality Tax &amp; Fees (12%)</span>
+                  <span id="summary-taxes">$0.00</span>
+                </div>
+                <div style="border-top: 1.5px dashed var(--border-color); padding-top: 0.75rem; margin-top: 0.5rem; display: flex; justify-content: space-between; font-size: 1.15rem; font-weight: 800; color: var(--primary-dark);">
+                  <span>Total Amount</span>
+                  <span id="summary-total" style="color: var(--primary);">$0.00</span>
+                </div>
+              </div>
+
+              <!-- Payment Simulation -->
+              <h4 style="font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">
+                Select Payment Method
+              </h4>
+              <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.85rem; margin-bottom: 1.25rem;">
+                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.4rem; background: white; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                  <input type="radio" name="paymentMethod" value="Credit Card (Instant)" checked>
+                  <span>💳 Instant Card (Visa / Master / Amex)</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.4rem; background: white; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                  <input type="radio" name="paymentMethod" value="UPI / QR Code">
+                  <span>📱 Instant UPI / QR Scan</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.4rem; background: white; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                  <input type="radio" name="paymentMethod" value="Pay at Hotel Desk">
+                  <span>🛎️ Pay at Front Desk on Arrival</span>
+                </label>
+              </div>
+
+              <div style="margin-top: auto;">
+                <button type="submit" class="btn btn-accent" style="width: 100%; padding: 0.85rem; font-size: 1rem;">
+                  Confirm &amp; Complete Booking
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Booking Invoice Voucher Modal -->
+  <div class="modal-overlay" id="voucher-modal">
+    <div class="modal-card" style="max-width: 680px;">
+      <div class="modal-header">
+        <h3>Digital Reservation Folio</h3>
+        <button class="modal-close" onclick="closeModal('voucher-modal')">&times;</button>
+      </div>
+      <div class="modal-body" id="voucher-content"></div>
+    </div>
+  </div>
+
+  <!-- Add Suite Modal (Admin) -->
+  <div class="modal-overlay" id="add-room-modal">
+    <div class="modal-card" style="max-width: 580px;">
+      <div class="modal-header">
+        <h3>Add New Suite to Inventory</h3>
+        <button class="modal-close" onclick="closeModal('add-room-modal')">&times;</button>
+      </div>
+      <form id="add-room-form">
+        <div class="modal-body">
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1rem;">
+              <div>
+                <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Room # *</label>
+                <input type="text" id="new-room-num" required placeholder="e.g. 501" style="width: 100%; padding: 0.65rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+              </div>
+              <div>
+                <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Suite Name / Title *</label>
+                <input type="text" id="new-room-title" required placeholder="e.g. Sapphire Horizon Suite" style="width: 100%; padding: 0.65rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div>
+                <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Category *</label>
+                <select id="new-room-cat" style="width: 100%; padding: 0.65rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+                  <option value="Suites">Suites</option>
+                  <option value="Penthouse">Penthouse</option>
+                  <option value="Villas">Villas</option>
+                  <option value="Standard">Standard</option>
+                </select>
+              </div>
+              <div>
+                <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Rate Per Night ($ USD) *</label>
+                <input type="number" id="new-room-price" required min="50" step="5" value="250" style="width: 100%; padding: 0.65rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div>
+                <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Capacity (Guests)</label>
+                <input type="number" id="new-room-capacity" min="1" max="10" value="2" style="width: 100%; padding: 0.65rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+              </div>
+              <div>
+                <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Beds</label>
+                <input type="text" id="new-room-beds" value="1 King Bed" style="width: 100%; padding: 0.65rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+              </div>
+            </div>
+
+            <div>
+              <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Image URL (Unsplash or direct URL)</label>
+              <input type="url" id="new-room-img" placeholder="https://..." value="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1000&q=80" style="width: 100%; padding: 0.65rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+            </div>
+
+            <div>
+              <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Description</label>
+              <textarea id="new-room-desc" rows="3" style="width: 100%; padding: 0.65rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-family: inherit;">Spacious luxury suite with bespoke furnishings and state-of-the-art comforts.</textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('add-room-modal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Suite to System</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- SkillWallet Architecture & 6 Epics Modal -->
+  <div class="modal-overlay" id="architecture-modal">
+    <div class="modal-card" style="max-width: 820px;">
+      <div class="modal-header">
+        <div>
+          <h3>HotelPro - Project Architecture &amp; SkillWallet Epics</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">
+            Complexity: Medium • Duration: 1h 0m • 6 Epics • 19 Tasks All Complete
+          </p>
+        </div>
+        <button class="modal-close" onclick="closeModal('architecture-modal')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 1.25rem; border-radius: var(--radius-md); margin-bottom: 1.5rem;">
+          <h4 style="color: var(--primary); font-size: 1rem; margin-bottom: 0.35rem;">MERN Stack System Architecture</h4>
+          <p style="font-size: 0.85rem; color: #1e3a8a; line-height: 1.6;">
+            <strong>Client:</strong> React.js Single Page App with real-time state, localStorage sync &amp; printable PDF vouchers.<br/>
+            <strong>Server:</strong> Express.js &amp; Node.js REST API with CORS, JWT Bearer tokens, and RBAC.<br/>
+            <strong>Database:</strong> MongoDB NoSQL Schemas (Users, Rooms, Bookings, Payments, Reviews).<br/>
+            <strong>Security:</strong> BCrypt password hashing, JWT stateless tokens, and role-based guards (Admin, Staff, Guest).
+          </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+
+          <div class="epic-card">
+            <span class="epic-badge">Epic 1 / 6</span>
+            <h4 style="font-size: 0.95rem;">Project Architecture</h4>
+            <ul class="task-list">
+              <li class="task-item"><span class="task-check">✓</span> Task 1: MERN Stack Architecture Design</li>
+              <li class="task-item"><span class="task-check">✓</span> Task 2: Data Schema &amp; ER Modeling</li>
+              <li class="task-item"><span class="task-check">✓</span> Task 3: RESTful API Endpoint Planning</li>
+            </ul>
+          </div>
+
+          <div class="epic-card">
+            <span class="epic-badge">Epic 2 / 6</span>
+            <h4 style="font-size: 0.95rem;">Project Setup &amp; Configuration</h4>
+            <ul class="task-list">
+              <li class="task-item"><span class="task-check">✓</span> Task 4: Express Server &amp; Environment</li>
+              <li class="task-item"><span class="task-check">✓</span> Task 5: Frontend Build &amp; UI Design System</li>
+              <li class="task-item"><span class="task-check">✓</span> Task 6: Error Handling Middleware</li>
+            </ul>
+          </div>
+
+          <div class="epic-card">
+            <span class="epic-badge">Epic 3 / 6</span>
+            <h4 style="font-size: 0.95rem;">Database Development</h4>
+            <ul class="task-list">
+              <li class="task-item"><span class="task-check">✓</span> Task 7: MongoDB Connection &amp; Mongoose</li>
+              <li class="task-item"><span class="task-check">✓</span> Task 8: User, Room, Booking, Payment Models</li>
+              <li class="task-item"><span class="task-check">✓</span> Task 9: Inventory Database Seeder Script</li>
+            </ul>
+          </div>
+
+          <div class="epic-card">
+            <span class="epic-badge">Epic 4 / 6</span>
+            <h4 style="font-size: 0.95rem;">Backend Development</h4>
+            <ul class="task-list">
+              <li class="task-item"><span class="task-check">✓</span> Task 10: JWT Auth &amp; Role-based Access</li>
+              <li class="task-item"><span class="task-check">✓</span> Task 11: Room Catalog &amp; Search API</li>
+              <li class="task-item"><span class="task-check">✓</span> Task 12: Booking Engine &amp; Pricing Calculator</li>
+              <li class="task-item"><span class="task-check">✓</span> Task 13: Front Desk Check-in / Out Workflow</li>
+              <li class="task-item"><span class="task-check">✓</span> Task 14: Payment Processing &amp; Billing API</li>
+            </ul>
+          </div>
+
+          <div class="epic-card">
+            <span class="epic-badge">Epic 5 / 6</span>
+            <h4 style="font-size: 0.95rem;">Frontend Development</h4>
+            <ul class="task-list">
+              <li class="task-item"><span class="task-check">✓</span> Task 15: Public Showcase &amp; Search Filters</li>
+              <li class="task-item"><span class="task-check">✓</span> Task 16: Interactive Booking Modal &amp; Checkout</li>
+              <li class="task-item"><span class="task-check">✓</span> Task 17: Guest Self-Service Bookings Portal</li>
+              <li class="task-item"><span class="task-check">✓</span> Task 18: Hotel Operations Dashboard</li>
+            </ul>
+          </div>
+
+          <div class="epic-card">
+            <span class="epic-badge">Epic 6 / 6</span>
+            <h4 style="font-size: 0.95rem;">Project Execution</h4>
+            <ul class="task-list">
+              <li class="task-item"><span class="task-check">✓</span> Task 19: End-to-End Integration, Seed Data &amp; Verification</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="closeModal('architecture-modal')">Close Roadmap</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- JavaScript -->
+  <script src="app.js"></script>
+</body>
+</html>
